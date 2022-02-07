@@ -2,6 +2,7 @@ package me.timur.travelcompanyapp.controller;
 
 import me.timur.travelcompanyapp.annotation.AuthorizationUser;
 import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.model.BaseResponse;
 import me.timur.travelcompanyapp.model.group.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.service.GroupService;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,6 @@ public record GroupController(
             @AuthorizationUser User user
     ) {
         var groupId = groupService.register(dto, user);
-        return ResponseEntity.ok(groupId);
+        return ResponseEntity.ok(BaseResponse.payload(groupId));
     }
 }
