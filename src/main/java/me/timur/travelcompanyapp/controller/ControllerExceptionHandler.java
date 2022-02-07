@@ -1,0 +1,36 @@
+package me.timur.travelcompanyapp.controller;
+
+import lombok.extern.slf4j.Slf4j;
+import me.timur.travelcompanyapp.exception.InvalidInputException;
+import me.timur.travelcompanyapp.model.BaseResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+/**
+ * Created by Temurbek Ismoilov on 07/02/22.
+ */
+
+@Slf4j
+@RestControllerAdvice
+public class ControllerExceptionHandler {
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidInputException.class)
+    public BaseResponse handleInvalidInputException(InvalidInputException e){
+        log.error(e.getMessage(), e);
+        return BaseResponse.error(e);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public BaseResponse handleUnexpectedException(Exception e){
+        log.error("Unexpected exception: " + e.getMessage(), e);
+        return BaseResponse.error(e);
+    }
+
+}
+
+
+

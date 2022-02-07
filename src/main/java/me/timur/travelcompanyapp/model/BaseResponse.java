@@ -1,26 +1,43 @@
 package me.timur.travelcompanyapp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Created by Temurbek Ismoilov on 07/02/22.
  */
-@Getter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseResponse {
-    private String code = "OK";
-    private String description = null;
-    private Object payload;
+    private Object payload = null;
+    private ErrorPayload error = null;
 
     public static BaseResponse payload(Object payload){
         return BaseResponse.builder()
                 .payload(payload)
-                .code("OK")
                 .build();
+    }
+
+    public static BaseResponse error(Exception e) {
+        return BaseResponse.builder()
+                .error(new ErrorPayload(e))
+                .build();
+    }
+}
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+class ErrorPayload {
+    private String name;
+    private String type;
+    private String message;
+
+    public ErrorPayload(Exception e) {
+        this.name = e.getClass().getSimpleName();
+        this.type = e.getClass().getTypeName();
+        this.message = e.getMessage();
     }
 }
