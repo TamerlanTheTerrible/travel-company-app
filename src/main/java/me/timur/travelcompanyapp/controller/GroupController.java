@@ -5,7 +5,6 @@ import me.timur.travelcompanyapp.domain.User;
 import me.timur.travelcompanyapp.model.BaseResponse;
 import me.timur.travelcompanyapp.model.group.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.service.GroupService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,11 +18,11 @@ public record GroupController(
 ) {
 
     @PostMapping("")
-    public ResponseEntity<Object> register(
+    public BaseResponse register(
             @RequestBody GroupRegistrationRequest dto,
             @AuthorizationUser User user
     ) {
         var groupId = groupService.register(dto, user);
-        return ResponseEntity.ok(BaseResponse.payload(groupId));
+        return BaseResponse.payload(groupId);
     }
 }

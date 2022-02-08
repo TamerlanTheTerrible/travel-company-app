@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 
 @Service
-public record CompanyServiceDefault(
+public record CompanyDefaultService(
         CompanyRepository companyRepository
 ) implements CompanyService {
 

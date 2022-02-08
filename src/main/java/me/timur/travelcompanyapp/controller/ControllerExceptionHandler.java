@@ -1,5 +1,6 @@
 package me.timur.travelcompanyapp.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import me.timur.travelcompanyapp.exception.InvalidInputException;
 import me.timur.travelcompanyapp.model.BaseResponse;
@@ -19,6 +20,13 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidInputException.class)
     public BaseResponse handleInvalidInputException(InvalidInputException e){
+        log.error(e.getMessage(), e);
+        return BaseResponse.error(e);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(JsonProcessingException.class)
+    public BaseResponse handleJsonProcessingException(JsonProcessingException e) {
         log.error(e.getMessage(), e);
         return BaseResponse.error(e);
     }

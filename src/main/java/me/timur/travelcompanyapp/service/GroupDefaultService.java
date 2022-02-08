@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public record GroupServiceDefault(
+public record GroupDefaultService(
       GroupRepository groupRepository,
       CompanyService companyService,
       UserService userService,

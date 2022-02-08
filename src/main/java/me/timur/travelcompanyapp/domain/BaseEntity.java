@@ -2,6 +2,7 @@ package me.timur.travelcompanyapp.domain;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -26,4 +27,12 @@ public class BaseEntity {
 
     @UpdateTimestamp
     private LocalDateTime dateUpdated;
+
+    public static void test() {
+        int score = 100;
+        if (score > 0)
+            System.out.println("yay");
+
+        System.out.println("yay yay");
+    }
 }
