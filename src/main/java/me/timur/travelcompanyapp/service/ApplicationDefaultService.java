@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.ApplicationType;
+import me.timur.travelcompanyapp.domain.application.ApplicationType;
 import me.timur.travelcompanyapp.repository.ApplicationTypeRepository;
 import org.springframework.stereotype.Service;
 

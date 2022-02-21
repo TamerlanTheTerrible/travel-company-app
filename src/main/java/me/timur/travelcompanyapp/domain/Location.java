@@ -17,12 +17,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table
-public class ApplicationType {
+public class Location {
 
     @Id
-    private String type;
+    private String name;
 
     @Convert(converter = LangToJsonConverter.class)
     private Lang lang;
 }
-
