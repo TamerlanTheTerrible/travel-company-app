@@ -37,4 +37,8 @@ public class Group extends BaseEntity {
     private LocalDateTime departure;
 
     private Short registeredSize;
+
+    @ManyToOne
+    @JoinColumn(name = "group_status")
+    private GroupStatus status;
 }
