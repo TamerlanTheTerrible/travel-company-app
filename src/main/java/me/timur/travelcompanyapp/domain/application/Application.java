@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.timur.travelcompanyapp.domain.BaseEntity;
 import me.timur.travelcompanyapp.domain.Group;
+import me.timur.travelcompanyapp.domain.User;
 
 import javax.persistence.*;
 
@@ -26,4 +27,9 @@ public class Application extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "type")
     private ApplicationType type;
+
+    @ManyToOne
+    @JoinColumn(name = "tour_operator_id")
+    private User tourOperator;
+
 }

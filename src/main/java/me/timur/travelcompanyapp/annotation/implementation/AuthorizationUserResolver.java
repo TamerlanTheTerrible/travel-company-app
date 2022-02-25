@@ -38,6 +38,6 @@ public class AuthorizationUserResolver implements HandlerMethodArgumentResolver 
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         String token = request.getHeader("Authorization");
         String username = jwtTokenVerifier.getUsername(token);
-        return userService.findByUserName(username);
+        return userService.findByUsername(username);
     }
 }

@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.timur.travelcompanyapp.domain.Accommodation;
-import me.timur.travelcompanyapp.domain.AccommodationCategory;
+import me.timur.travelcompanyapp.domain.Room;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by Temurbek Ismoilov on 08/02/22.
@@ -18,19 +19,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table
-public class AccommodationApplication extends Bookable {
+public class AccommodationApplication extends BookableEntity {
 
     @ManyToOne
     @JoinColumn(name = "accommodation_ID")
     private Accommodation accommodation;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private AccommodationCategory category;
 
     @Column(name = "check_in")
     private LocalDateTime checkIn;
 
     @Column(name = "check_out")
     private LocalDateTime checkOut;
+
+    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
+    private List<Room> rooming;
 }

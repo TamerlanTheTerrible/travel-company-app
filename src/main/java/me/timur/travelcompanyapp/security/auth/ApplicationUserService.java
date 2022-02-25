@@ -22,7 +22,7 @@ public class ApplicationUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByUserName(username);
+        User user = userService.findByUsername(username);
         return ApplicationUser.fromEntity(user);
     }
 }

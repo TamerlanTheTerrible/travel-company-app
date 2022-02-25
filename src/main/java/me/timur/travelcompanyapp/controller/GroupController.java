@@ -3,7 +3,7 @@ package me.timur.travelcompanyapp.controller;
 import me.timur.travelcompanyapp.annotation.AuthorizationUser;
 import me.timur.travelcompanyapp.domain.User;
 import me.timur.travelcompanyapp.model.BaseResponse;
-import me.timur.travelcompanyapp.model.group.GroupRegistrationRequest;
+import me.timur.travelcompanyapp.model.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.service.GroupService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +19,10 @@ public record GroupController(
 
     @PostMapping("")
     public BaseResponse register(
-            @RequestBody GroupRegistrationRequest dto,
+            @RequestBody GroupRegistrationRequest groupRegistrationRequest,
             @AuthorizationUser User user
     ) {
-        var groupId = groupService.register(dto, user);
+        var groupId = groupService.register(groupRegistrationRequest, user);
         return BaseResponse.payload(groupId);
     }
 }

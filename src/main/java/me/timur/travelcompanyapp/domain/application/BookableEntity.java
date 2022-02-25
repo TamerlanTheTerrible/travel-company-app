@@ -14,7 +14,7 @@ import javax.persistence.MappedSuperclass;
 
 @Data
 @MappedSuperclass
-public abstract class Bookable extends BaseEntity {
+public abstract class BookableEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "application_id")

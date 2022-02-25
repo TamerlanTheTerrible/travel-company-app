@@ -13,8 +13,10 @@ import javax.persistence.*;
 @Table(name = "accommodation")
 public class Accommodation extends BaseEntity {
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "full_name")
     private String fullName;
 
     @ManyToOne

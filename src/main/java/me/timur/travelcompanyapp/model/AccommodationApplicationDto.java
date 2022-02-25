@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.model.group;
+package me.timur.travelcompanyapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -6,20 +6,20 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 /**
- * Created by Temurbek Ismoilov on 06/02/22.
+ * Created by Temurbek Ismoilov on 25/02/22.
  */
 
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class GroupRegistrationRequest {
-    String groupNumber;
-    String company;
-    String country;
-    String arrival;
-    String departure;
-    Short registeredSize;
+public class AccommodationApplicationDto implements Bookable {
+    String accommodationName;
+    LocalDateTime checkIn;
+    LocalDateTime checkOut;
+    List<RoomDto> rooming;
 }
-

@@ -8,5 +8,5 @@ import me.timur.travelcompanyapp.domain.User;
 
 public interface UserService {
 
-    User findByUserName(String username);
+    User findByUsername(String username);
 }
