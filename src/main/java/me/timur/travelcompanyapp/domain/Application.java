@@ -1,13 +1,11 @@
-package me.timur.travelcompanyapp.domain.application;
+package me.timur.travelcompanyapp.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.timur.travelcompanyapp.domain.BaseEntity;
-import me.timur.travelcompanyapp.domain.Group;
-import me.timur.travelcompanyapp.domain.User;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Temurbek Ismoilov on 08/02/22.

@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.application.Application;
+import me.timur.travelcompanyapp.domain.Application;
 import me.timur.travelcompanyapp.model.Bookable;
 
 import java.util.List;
@@ -10,5 +10,5 @@ import java.util.List;
  */
 
 public interface BookingService {
-    Application book(List<Bookable> bookingList);
+    void bookAll(Application application, List<Bookable> bookingList);
 }

@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.domain.application;
+package me.timur.travelcompanyapp.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

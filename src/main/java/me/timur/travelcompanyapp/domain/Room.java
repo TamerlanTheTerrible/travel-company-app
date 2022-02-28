@@ -3,7 +3,6 @@ package me.timur.travelcompanyapp.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.timur.travelcompanyapp.domain.application.AccommodationApplication;
 
 import javax.persistence.*;
 
@@ -14,9 +13,14 @@ import javax.persistence.*;
 @Table(name = "room")
 public class Room extends BaseEntity {
 
+    public Room(RoomType type, Integer quantity) {
+        this.setRoomType(type);
+        this.setQuantity(quantity);
+    }
+
     @ManyToOne
     @JoinColumn(name = "application_id")
-    private AccommodationApplication application;
+    private AccommodationBookable application;
 
     @ManyToOne
     @JoinColumn(name = "room_type_id")
@@ -24,4 +28,6 @@ public class Room extends BaseEntity {
 
     @Column(name = "quantity")
     private Integer quantity;
+
+
 }

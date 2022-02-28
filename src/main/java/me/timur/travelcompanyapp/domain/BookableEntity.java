@@ -1,12 +1,10 @@
-package me.timur.travelcompanyapp.domain.application;
+package me.timur.travelcompanyapp.domain;
 
 import lombok.Data;
-import me.timur.travelcompanyapp.domain.BaseEntity;
 import me.timur.travelcompanyapp.model.BookingStatus;
+import org.springframework.security.core.Transient;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 /**
  * Created by Temurbek Ismoilov on 08/02/22.

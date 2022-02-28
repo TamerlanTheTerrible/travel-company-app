@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class AccommodationApplicationDto implements Bookable {
+public class AccommdationBookableDto implements Bookable {
     String accommodationName;
     LocalDateTime checkIn;
     LocalDateTime checkOut;

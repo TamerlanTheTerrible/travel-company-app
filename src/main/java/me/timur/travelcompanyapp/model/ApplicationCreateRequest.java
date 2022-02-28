@@ -20,6 +20,6 @@ public class ApplicationCreateRequest {
 
     private Integer groupId;
     private String applicationType;
-    private String tourOperator;
+    private String tourOperatorName;
     private List<Bookable> bookingList;
 }

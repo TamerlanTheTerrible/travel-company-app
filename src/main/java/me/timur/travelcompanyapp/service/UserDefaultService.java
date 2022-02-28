@@ -22,6 +22,7 @@ public record UserDefaultService(
                 .orElseThrow(() -> new InvalidUsernameException(String.format("Username %s not found", username)));
     }
 
+    @Override
     public User findByUsernameAndRole(String username, ApplicationUserRole role) {
         return userRepository.findByUsernameAndRole(username, role)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Could not find user with name %s and role %s" + username, role.name())));

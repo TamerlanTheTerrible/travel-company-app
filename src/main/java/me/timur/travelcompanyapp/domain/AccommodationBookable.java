@@ -1,10 +1,9 @@
-package me.timur.travelcompanyapp.domain.application;
+package me.timur.travelcompanyapp.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.timur.travelcompanyapp.domain.Accommodation;
-import me.timur.travelcompanyapp.domain.Room;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,9 +16,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
-@Table
-public class AccommodationApplication extends BookableEntity {
+@Table(name = "accommodation_bookable")
+public class AccommodationBookable extends BookableEntity {
 
     @ManyToOne
     @JoinColumn(name = "accommodation_ID")
@@ -31,6 +31,6 @@ public class AccommodationApplication extends BookableEntity {
     @Column(name = "check_out")
     private LocalDateTime checkOut;
 
-    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Room> rooming;
 }

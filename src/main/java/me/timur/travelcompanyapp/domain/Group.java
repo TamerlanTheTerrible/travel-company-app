@@ -38,7 +38,5 @@ public class Group extends BaseEntity {
 
     private Short registeredSize;
 
-    @ManyToOne
-    @JoinColumn(name = "group_status")
-    private GroupStatus status;
+    private Boolean isActive;
 }
