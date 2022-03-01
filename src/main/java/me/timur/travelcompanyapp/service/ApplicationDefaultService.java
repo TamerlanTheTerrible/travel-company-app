@@ -10,6 +10,7 @@ import me.timur.travelcompanyapp.repository.ApplicationTypeRepository;
 import me.timur.travelcompanyapp.security.auth.ApplicationUserRole;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,13 +19,21 @@ import java.util.List;
  */
 
 @Service
-public record ApplicationDefaultService(
-        BeanFactory beanFactory,
-        GroupService groupService,
-        UserService userService,
-        ApplicationRepository applicationRepository,
-        ApplicationTypeRepository applicationTypeRepository
-) implements ApplicationService {
+public class ApplicationDefaultService implements ApplicationService {
+
+    private final BeanFactory beanFactory;
+    private final GroupService groupService;
+    private final UserService userService;
+    private final ApplicationRepository applicationRepository;
+    private final ApplicationTypeRepository applicationTypeRepository;
+
+    public ApplicationDefaultService(BeanFactory beanFactory, GroupService groupService, UserService userService, ApplicationRepository applicationRepository, ApplicationTypeRepository applicationTypeRepository) {
+        this.beanFactory = beanFactory;
+        this.groupService = groupService;
+        this.userService = userService;
+        this.applicationRepository = applicationRepository;
+        this.applicationTypeRepository = applicationTypeRepository;
+    }
 
     @Override
     public Application save(ApplicationCreateRequest appCreateDto) {

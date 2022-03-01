@@ -24,7 +24,7 @@ public class Accommodation extends BaseEntity {
     private Location location;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category")
     private AccommodationCategory category;
 
     private String description;

@@ -1,11 +1,13 @@
 package me.timur.travelcompanyapp.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import me.timur.travelcompanyapp.annotation.AuthorizationUser;
+import me.timur.travelcompanyapp.domain.Application;
 import me.timur.travelcompanyapp.domain.User;
 import me.timur.travelcompanyapp.model.ApplicationCreateRequest;
 import me.timur.travelcompanyapp.model.BaseResponse;
 import me.timur.travelcompanyapp.service.ApplicationService;
-import me.timur.travelcompanyapp.service.BookingService;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,14 +24,14 @@ public record ApplicationController(
     public BaseResponse saveApplication(
             @RequestBody ApplicationCreateRequest createRequest,
             @AuthorizationUser User tourOperator
-    ) {
-
-        return BaseResponse.payload("hello");
+    ) throws JsonProcessingException {
+        Application application = applicationService.save(createRequest);
+        return BaseResponse.payload(new ObjectMapper().writeValueAsString(application.getId()));
     }
 
 
     @GetMapping("/type")
     public BaseResponse getApplicationTypes() {
-        return BaseResponse.payload (applicationService.findAllTypes());
+        return BaseResponse.payload(applicationService.findAllTypes());
     }
 }

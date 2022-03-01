@@ -1,9 +1,12 @@
 package me.timur.travelcompanyapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -15,11 +18,13 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class AccommdationBookableDto implements Bookable {
+public class AccommdationBookableDto extends Bookable {
     String accommodationName;
-    LocalDateTime checkIn;
-    LocalDateTime checkOut;
+    String checkIn;
+    String checkOut;
     List<RoomDto> rooming;
 }

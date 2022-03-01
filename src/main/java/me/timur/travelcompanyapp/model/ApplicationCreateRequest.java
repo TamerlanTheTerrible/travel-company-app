@@ -17,7 +17,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ApplicationCreateRequest {
-
     private Integer groupId;
     private String applicationType;
     private String tourOperatorName;

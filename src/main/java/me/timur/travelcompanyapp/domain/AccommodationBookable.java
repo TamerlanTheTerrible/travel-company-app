@@ -31,6 +31,10 @@ public class AccommodationBookable extends BookableEntity {
     @Column(name = "check_out")
     private LocalDateTime checkOut;
 
+    @ManyToOne
+    @JoinColumn(name = "booking_status")
+    private BookingStatus status;
+
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Room> rooming;
 }
