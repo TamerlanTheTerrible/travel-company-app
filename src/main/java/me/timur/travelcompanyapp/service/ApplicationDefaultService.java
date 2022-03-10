@@ -8,10 +8,12 @@ import me.timur.travelcompanyapp.model.ApplicationCreateRequest;
 import me.timur.travelcompanyapp.repository.ApplicationRepository;
 import me.timur.travelcompanyapp.repository.ApplicationTypeRepository;
 import me.timur.travelcompanyapp.security.auth.ApplicationUserRole;
+import me.timur.travelcompanyapp.specification.ApplicationSpecification;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,24 +28,24 @@ public class ApplicationDefaultService implements ApplicationService {
     private final UserService userService;
     private final ApplicationRepository applicationRepository;
     private final ApplicationTypeRepository applicationTypeRepository;
+    private final ApplicationSpecification applicationSpecification;
 
-    public ApplicationDefaultService(BeanFactory beanFactory, GroupService groupService, UserService userService, ApplicationRepository applicationRepository, ApplicationTypeRepository applicationTypeRepository) {
+    public ApplicationDefaultService(BeanFactory beanFactory, GroupService groupService, UserService userService, ApplicationRepository applicationRepository, ApplicationTypeRepository applicationTypeRepository, ApplicationSpecification applicationSpecification) {
         this.beanFactory = beanFactory;
         this.groupService = groupService;
         this.userService = userService;
         this.applicationRepository = applicationRepository;
         this.applicationTypeRepository = applicationTypeRepository;
+        this.applicationSpecification = applicationSpecification;
     }
 
     @Override
     public Application save(ApplicationCreateRequest appCreateDto) {
-
         //save application
         Group group = groupService.findById(appCreateDto.getGroupId());
         User tourOperator = userService.findByUsernameAndRole(appCreateDto.getTourOperatorName(), ApplicationUserRole.TOUR_OPERATOR);
         ApplicationType appType = applicationTypeRepository.getById(appCreateDto.getApplicationType());
         Application app = applicationRepository.save(new Application(group, appType, tourOperator));
-
         //book services
         BookingService bookingService = beanFactory.getBean(appCreateDto.getApplicationType().toLowerCase() + "BookingService", BookingService.class);
         bookingService.bookAll(app, appCreateDto.getBookingList());
@@ -54,5 +56,10 @@ public class ApplicationDefaultService implements ApplicationService {
     @Override
     public List<ApplicationType> findAllTypes() {
         return applicationTypeRepository.findAll();
+    }
+
+    @Override
+    public List<Application> findAllFiltered(HashMap<String, String> filters) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+        return applicationRepository.findAll(applicationSpecification.getSpecification(filters));
     }
 }

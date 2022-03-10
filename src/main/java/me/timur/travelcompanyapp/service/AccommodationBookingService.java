@@ -7,7 +7,6 @@ import me.timur.travelcompanyapp.model.Bookable;
 import me.timur.travelcompanyapp.repository.AccommodationBookableRepository;
 import me.timur.travelcompanyapp.repository.BookingStatusRepository;
 import me.timur.travelcompanyapp.util.DateUtil;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
