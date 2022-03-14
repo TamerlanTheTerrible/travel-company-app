@@ -1,5 +1,6 @@
 package me.timur.travelcompanyapp.service;
 
+import me.timur.travelcompanyapp.domain.AccommodationBookable;
 import me.timur.travelcompanyapp.domain.Room;
 import me.timur.travelcompanyapp.domain.RoomType;
 import me.timur.travelcompanyapp.exception.ResourceNotFoundException;

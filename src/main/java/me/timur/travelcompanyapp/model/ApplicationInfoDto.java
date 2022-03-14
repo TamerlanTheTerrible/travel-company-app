@@ -7,19 +7,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by Temurbek Ismoilov on 06/02/22.
+ * Created by Temurbek Ismoilov on 14/03/22.
  */
 
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class GroupRegistrationRequest {
-    String groupNumber;
-    String company;
-    String country;
-    String arrival;
-    String departure;
-    Short registeredSize;
+public class ApplicationInfoDto {
+    private Integer groupId;
+    private String groupNumber;
+    private String registrationDate;
+    private String groupSize;
+    private String applicationType;
 }
-

@@ -3,7 +3,7 @@ package me.timur.travelcompanyapp.controller;
 import me.timur.travelcompanyapp.annotation.AuthorizationUser;
 import me.timur.travelcompanyapp.domain.Application;
 import me.timur.travelcompanyapp.domain.User;
-import me.timur.travelcompanyapp.model.ApplicationCreateRequest;
+import me.timur.travelcompanyapp.model.reservation.ApplicationRegistrationRequest;
 import me.timur.travelcompanyapp.model.BaseResponse;
 import me.timur.travelcompanyapp.service.ApplicationService;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ public record ApplicationController(
 ) {
 
     @PostMapping("")
-    public BaseResponse save(@RequestBody ApplicationCreateRequest createRequest){
+    public BaseResponse save(@RequestBody ApplicationRegistrationRequest createRequest){
         Application application = applicationService.save(createRequest);
         return BaseResponse.payload(application.getId());
     }

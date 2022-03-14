@@ -4,7 +4,7 @@ import me.timur.travelcompanyapp.domain.Group;
 import me.timur.travelcompanyapp.domain.User;
 import me.timur.travelcompanyapp.domain.Application;
 import me.timur.travelcompanyapp.domain.ApplicationType;
-import me.timur.travelcompanyapp.model.ApplicationCreateRequest;
+import me.timur.travelcompanyapp.model.reservation.ApplicationRegistrationRequest;
 import me.timur.travelcompanyapp.repository.ApplicationRepository;
 import me.timur.travelcompanyapp.repository.ApplicationTypeRepository;
 import me.timur.travelcompanyapp.security.auth.ApplicationUserRole;
@@ -40,7 +40,7 @@ public class ApplicationDefaultService implements ApplicationService {
     }
 
     @Override
-    public Application save(ApplicationCreateRequest appCreateDto) {
+    public Application save(ApplicationRegistrationRequest appCreateDto) {
         //save application
         Group group = groupService.findById(appCreateDto.getGroupId());
         User tourOperator = userService.findByUsernameAndRole(appCreateDto.getTourOperatorName(), ApplicationUserRole.TOUR_OPERATOR);

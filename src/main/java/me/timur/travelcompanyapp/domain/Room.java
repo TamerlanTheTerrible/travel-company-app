@@ -16,11 +16,12 @@ public class Room extends BaseEntity {
     public Room(RoomType type, Integer quantity) {
         this.setRoomType(type);
         this.setQuantity(quantity);
+//        this.accommodationBookable = accommodationBookable;
     }
 
     @ManyToOne
-    @JoinColumn(name = "application_id")
-    private AccommodationBookable application;
+    @JoinColumn(name = "accommodation_bookable_id")
+    private AccommodationBookable accommodationBookable;
 
     @ManyToOne
     @JoinColumn(name = "room_type_id")

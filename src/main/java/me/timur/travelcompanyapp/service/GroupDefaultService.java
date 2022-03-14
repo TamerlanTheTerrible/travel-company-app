@@ -3,7 +3,7 @@ package me.timur.travelcompanyapp.service;
 import me.timur.travelcompanyapp.domain.Group;
 import me.timur.travelcompanyapp.domain.User;
 import me.timur.travelcompanyapp.exception.ResourceNotFoundException;
-import me.timur.travelcompanyapp.model.GroupRegistrationRequest;
+import me.timur.travelcompanyapp.model.reservation.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.repository.GroupRepository;
 import me.timur.travelcompanyapp.security.jwt.JwtTokenVerifier;
 import me.timur.travelcompanyapp.util.DateUtil;

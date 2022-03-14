@@ -2,7 +2,8 @@ package me.timur.travelcompanyapp.service;
 
 import me.timur.travelcompanyapp.domain.AccommodationBookable;
 import me.timur.travelcompanyapp.domain.Application;
-import me.timur.travelcompanyapp.model.AccommdationBookableDto;
+import me.timur.travelcompanyapp.domain.Room;
+import me.timur.travelcompanyapp.model.reservation.AccommdationBookableDto;
 import me.timur.travelcompanyapp.model.Bookable;
 import me.timur.travelcompanyapp.repository.AccommodationBookableRepository;
 import me.timur.travelcompanyapp.repository.BookingStatusRepository;
@@ -38,15 +39,25 @@ public record AccommodationBookingService(
     }
 
     private AccommodationBookable accommodationDtoToEntity(AccommdationBookableDto dto, Application application) {
+        //create rooms from dto
+        List<Room> rooms = roomTypeService.roomDtosToRooms(dto.getRooming());
+
+        //create accommodationBookable and assign values
         AccommodationBookable accommodationBookable = AccommodationBookable.builder()
                 .accommodation(accommService.findByName(dto.getAccommodationName()))
                 .checkIn(DateUtil.stringToDateTimeOrNull(dto.getCheckIn()))
                 .checkOut(DateUtil.stringToDateTimeOrNull(dto.getCheckOut()))
-                .rooming(roomTypeService.roomDtosToRooms(dto.getRooming()))
+                .rooming(rooms)
                 .status(bookingStatusRepo.findById(ACCOMMODATION_BOOKABLE_DEFAULT_STATUS).orElseThrow())
                 .build();
 
+        //assign application to the accommodationBookable
         accommodationBookable.setApplication(application);
+
+        //set accommodationBookable for each room
+        rooms.forEach(room -> room.setAccommodationBookable(accommodationBookable));
+
         return accommodationBookable;
     }
 }
+

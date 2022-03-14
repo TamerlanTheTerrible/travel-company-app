@@ -35,6 +35,6 @@ public class AccommodationBookable extends BookableEntity {
     @JoinColumn(name = "booking_status")
     private BookingStatus status;
 
-    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "accommodationBookable", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Room> rooming;
 }

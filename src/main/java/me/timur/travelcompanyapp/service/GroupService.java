@@ -2,7 +2,7 @@ package me.timur.travelcompanyapp.service;
 
 import me.timur.travelcompanyapp.domain.Group;
 import me.timur.travelcompanyapp.domain.User;
-import me.timur.travelcompanyapp.model.GroupRegistrationRequest;
+import me.timur.travelcompanyapp.model.reservation.GroupRegistrationRequest;
 
 /**
  * Created by Temurbek Ismoilov on 06/02/22.

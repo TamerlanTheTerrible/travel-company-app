@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.model;
+package me.timur.travelcompanyapp.model.reservation;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.timur.travelcompanyapp.model.Bookable;
+import me.timur.travelcompanyapp.model.RoomDto;
 
 import java.util.List;
 
