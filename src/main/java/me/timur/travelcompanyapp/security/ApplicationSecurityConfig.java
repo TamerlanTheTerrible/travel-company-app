@@ -45,28 +45,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(jwtTokenVerifier, JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*", "/login", "/application/type").permitAll()
-//                .antMatchers("/api/**").hasRole(STUDENT.name())
                 .anyRequest()
                 .authenticated()
                 .and()
-
-//                .formLogin()
-//                .loginPage("/login").permitAll()
-//                .defaultSuccessUrl("/courses", true)
-//                .and()
-//
-//                .rememberMe()
-//                .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))
-//                .key("somethingverysecured")
-//                .and()
-//
-//                .logout()
-//                .logoutUrl("/logout")
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-//                .clearAuthentication(true)
-//                .invalidateHttpSession(true)
-//                .deleteCookies("JSESSIONID", "remember-me")
-//                .logoutSuccessUrl("/login")
         ;
     }
 

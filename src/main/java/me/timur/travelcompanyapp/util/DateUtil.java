@@ -21,17 +21,32 @@ public class DateUtil {
     }
 
     public static LocalDateTime stringToDateTimeOrNull(String dateInString) {
-        if (dateInString != null)
-            return tryStringToLocalDateTime(dateInString);
+        if (dateInString != null){
+            try {
+                return LocalDateTime.parse(dateInString, formatter);
+            } catch (DateTimeParseException e){
+                throw new InvalidInputException(String.format("Required pattern %s: ", pattern), e);
+            }
+        }
         else
             return null;
     }
 
-    private static LocalDateTime tryStringToLocalDateTime(String dateInString) {
-        try {
-            return LocalDateTime.parse(dateInString, formatter);
-        } catch (DateTimeParseException e){
-            throw new InvalidInputException(String.format("Required pattern %s: ", pattern), e);
+    public static String dateTimeToString(LocalDateTime date) {
+        if (date != null){
+            try {
+                return date.format(formatter);
+            } catch (DateTimeParseException e){
+                throw new InvalidInputException("Error while formatting " + date + "to " + formatter, e);
+            }
         }
+        else
+            return null;
     }
+
+    public static String formatDateInString(String dateInString) {
+        final LocalDateTime date = stringToDateTimeOrNull(dateInString);
+        return dateTimeToString(date);
+    }
+
 }

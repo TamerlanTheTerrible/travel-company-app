@@ -25,9 +25,4 @@ public class Application extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "type")
     private ApplicationType type;
-
-    @ManyToOne
-    @JoinColumn(name = "tour_operator_id")
-    private User tourOperator;
-
 }

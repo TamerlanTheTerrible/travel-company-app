@@ -9,7 +9,9 @@ import me.timur.travelcompanyapp.repository.ApplicationRepository;
 import me.timur.travelcompanyapp.repository.ApplicationTypeRepository;
 import me.timur.travelcompanyapp.security.auth.ApplicationUserRole;
 import me.timur.travelcompanyapp.specification.ApplicationSpecification;
+import me.timur.travelcompanyapp.specification.SpecificationBuilder;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
@@ -45,7 +47,7 @@ public class ApplicationDefaultService implements ApplicationService {
         Group group = groupService.findById(appCreateDto.getGroupId());
         User tourOperator = userService.findByUsernameAndRole(appCreateDto.getTourOperatorName(), ApplicationUserRole.TOUR_OPERATOR);
         ApplicationType appType = applicationTypeRepository.getById(appCreateDto.getApplicationType());
-        Application app = applicationRepository.save(new Application(group, appType, tourOperator));
+        Application app = applicationRepository.save(new Application(group, appType));
         //book services
         BookingService bookingService = beanFactory.getBean(appCreateDto.getApplicationType().toLowerCase() + "BookingService", BookingService.class);
         bookingService.bookAll(app, appCreateDto.getBookingList());
@@ -60,6 +62,6 @@ public class ApplicationDefaultService implements ApplicationService {
 
     @Override
     public List<Application> findAllFiltered(HashMap<String, String> filters) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-        return applicationRepository.findAll(applicationSpecification.getSpecification(filters));
+        return applicationRepository.findAll(SpecificationBuilder.build(applicationSpecification, filters));
     }
 }
