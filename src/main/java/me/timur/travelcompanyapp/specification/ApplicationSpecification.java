@@ -46,8 +46,8 @@ public record ApplicationSpecification(
         };
     }
 
-    public Specification<Application> byType(String typeName) {
-        ApplicationType type = applicationTypeRepository.findById(typeName).get();
+    public Specification<Application> type(String typeName) {
+        ApplicationType type = applicationTypeRepository.findById(typeName.toUpperCase()).get();
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("type"), type);
     }
 

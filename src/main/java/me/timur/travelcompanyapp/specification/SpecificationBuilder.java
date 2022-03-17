@@ -17,17 +17,17 @@ import static org.springframework.data.jpa.domain.Specification.where;
 public class SpecificationBuilder<T> {
     public static <T> Specification<T> build(EntitySpecification entitySpecification, HashMap<String, String> filters) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Specification<T> specification = null;
+
         final Set<String> keySet = filters.keySet();
 
         if (keySet.size() == 0)
             return emptySpecification();
 
         for (String key: keySet) {
-            if (specification == null) {
+            if (specification == null)
                 specification = where(invokeMethod(entitySpecification, filters, key));
-            } else {
+            else
                 specification = specification.and(invokeMethod(entitySpecification, filters, key));
-            }
         }
 
         return specification;
