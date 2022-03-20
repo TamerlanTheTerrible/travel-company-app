@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.domain;
+package me.timur.travelcompanyapp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +36,7 @@ public class Group extends BaseEntity {
 
     private LocalDateTime departure;
 
-    private Short registeredSize;
+    private Short registeredSize = 1;
 
-    private Boolean isActive;
+    private Boolean isActive = true;
 }

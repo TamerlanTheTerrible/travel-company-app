@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.entity.User;
 import me.timur.travelcompanyapp.exception.InvalidUsernameException;
 import me.timur.travelcompanyapp.exception.ResourceNotFoundException;
 import me.timur.travelcompanyapp.repository.UserRepository;

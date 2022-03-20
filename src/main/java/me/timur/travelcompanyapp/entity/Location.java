@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.domain;
+package me.timur.travelcompanyapp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,13 +16,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "application_type")
-public class ApplicationType {
+@Table
+public class Location {
 
     @Id
-    private String type;
+    private String name;
 
     @Convert(converter = LangToJsonConverter.class)
     private Lang lang;
 }
-

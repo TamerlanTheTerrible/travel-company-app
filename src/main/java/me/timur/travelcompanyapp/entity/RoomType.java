@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.domain;
+package me.timur.travelcompanyapp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,12 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "group_status")
-public class GroupStatus {
+@Table(name = "room_type")
+public class RoomType {
+
     @Id
-    @Column(name = "name", nullable = false)
+    @Column(name = "id", nullable = false)
     private String name;
 }

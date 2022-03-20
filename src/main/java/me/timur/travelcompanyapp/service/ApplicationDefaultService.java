@@ -1,10 +1,10 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.Group;
-import me.timur.travelcompanyapp.domain.User;
-import me.timur.travelcompanyapp.domain.Application;
-import me.timur.travelcompanyapp.domain.ApplicationType;
-import me.timur.travelcompanyapp.model.reservation.ApplicationRegistrationRequest;
+import me.timur.travelcompanyapp.entity.Group;
+import me.timur.travelcompanyapp.entity.User;
+import me.timur.travelcompanyapp.entity.Application;
+import me.timur.travelcompanyapp.entity.ApplicationType;
+import me.timur.travelcompanyapp.model.reservation.pre.ApplicationPreRegistrationRequest;
 import me.timur.travelcompanyapp.repository.ApplicationRepository;
 import me.timur.travelcompanyapp.repository.ApplicationTypeRepository;
 import me.timur.travelcompanyapp.security.auth.ApplicationUserRole;
@@ -42,15 +42,15 @@ public class ApplicationDefaultService implements ApplicationService {
     }
 
     @Override
-    public Application save(ApplicationRegistrationRequest appCreateDto) {
+    public Application save(ApplicationPreRegistrationRequest appCreateDto) {
         //save application
         Group group = groupService.findById(appCreateDto.getGroupId());
         User tourOperator = userService.findByUsernameAndRole(appCreateDto.getTourOperatorName(), ApplicationUserRole.TOUR_OPERATOR);
         ApplicationType appType = applicationTypeRepository.getById(appCreateDto.getApplicationType());
         Application app = applicationRepository.save(new Application(group, appType));
         //book services
-        BookingService bookingService = beanFactory.getBean(appCreateDto.getApplicationType().toLowerCase() + "BookingService", BookingService.class);
-        bookingService.bookAll(app, appCreateDto.getBookingList());
+        ReservationService reservationService = beanFactory.getBean(appCreateDto.getApplicationType().toLowerCase() + "BookingService", ReservationService.class);
+        reservationService.reserveAll(app, appCreateDto.getBookingList());
 
         return app;
     }
@@ -62,6 +62,8 @@ public class ApplicationDefaultService implements ApplicationService {
 
     @Override
     public List<Application> findAllFiltered(HashMap<String, String> filters) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-        return applicationRepository.findAll(SpecificationBuilder.build(applicationSpecification, filters));
+        final Specification<Application> specification = SpecificationBuilder.build(applicationSpecification, filters);
+        final List<Application> applications = applicationRepository.findAll(specification);
+        return applications;
     }
 }

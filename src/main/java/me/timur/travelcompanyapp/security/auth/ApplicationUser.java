@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.security.auth;
 
-import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

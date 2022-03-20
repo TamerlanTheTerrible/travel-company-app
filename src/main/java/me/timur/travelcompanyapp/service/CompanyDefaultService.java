@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.Company;
+import me.timur.travelcompanyapp.entity.Company;
 import me.timur.travelcompanyapp.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
 

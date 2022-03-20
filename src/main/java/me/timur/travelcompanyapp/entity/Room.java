@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.domain;
+package me.timur.travelcompanyapp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,12 +16,11 @@ public class Room extends BaseEntity {
     public Room(RoomType type, Integer quantity) {
         this.setRoomType(type);
         this.setQuantity(quantity);
-//        this.accommodationBookable = accommodationBookable;
     }
 
     @ManyToOne
-    @JoinColumn(name = "accommodation_bookable_id")
-    private AccommodationBookable accommodationBookable;
+    @JoinColumn(name = "accommodation_reservation_id")
+    private AccommodationReservation accommodationReservation;
 
     @ManyToOne
     @JoinColumn(name = "room_type_id")

@@ -1,9 +1,9 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.Group;
-import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.entity.Group;
+import me.timur.travelcompanyapp.entity.User;
 import me.timur.travelcompanyapp.exception.ResourceNotFoundException;
-import me.timur.travelcompanyapp.model.reservation.GroupRegistrationRequest;
+import me.timur.travelcompanyapp.model.reservation.pre.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.repository.GroupRepository;
 import me.timur.travelcompanyapp.security.jwt.JwtTokenVerifier;
 import me.timur.travelcompanyapp.util.DateUtil;
@@ -31,6 +31,7 @@ public record GroupDefaultService(
                 .arrival(DateUtil.stringToDateTimeOrNull(dto.getArrival()))
                 .departure(DateUtil.stringToDateTimeOrNull(dto.getDeparture()))
                 .registeredSize(dto.getRegisteredSize())
+                .isActive(true)
                 .build();
 
         return groupRepository.save(group).getId();

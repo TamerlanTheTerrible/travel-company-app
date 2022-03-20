@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.repository;
 
-import me.timur.travelcompanyapp.domain.RoomType;
+import me.timur.travelcompanyapp.entity.RoomType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.repository;
 
-import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.entity.User;
 import me.timur.travelcompanyapp.security.auth.ApplicationUserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

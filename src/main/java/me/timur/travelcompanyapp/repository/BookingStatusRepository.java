@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.repository;
 
-import me.timur.travelcompanyapp.domain.BookingStatus;
+import me.timur.travelcompanyapp.entity.ReservationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface BookingStatusRepository extends JpaRepository<BookingStatus, String> {
+public interface BookingStatusRepository extends JpaRepository<ReservationStatus, String> {
 }

@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.domain;
+package me.timur.travelcompanyapp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,18 +8,14 @@ import me.timur.travelcompanyapp.model.Lang;
 
 import javax.persistence.*;
 
-/**
- * Created by Temurbek Ismoilov on 08/02/22.
- */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
-public class Location {
-
+@Table(name = "reservation_status")
+public class ReservationStatus {
     @Id
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Convert(converter = LangToJsonConverter.class)

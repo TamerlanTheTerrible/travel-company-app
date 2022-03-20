@@ -1,6 +1,5 @@
 package me.timur.travelcompanyapp.specification;
 
-import me.timur.travelcompanyapp.domain.Application;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.lang.reflect.InvocationTargetException;

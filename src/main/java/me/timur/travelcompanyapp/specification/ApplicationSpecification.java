@@ -1,9 +1,9 @@
 package me.timur.travelcompanyapp.specification;
 
-import me.timur.travelcompanyapp.domain.Application;
-import me.timur.travelcompanyapp.domain.ApplicationType;
-import me.timur.travelcompanyapp.domain.Group;
-import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.entity.Application;
+import me.timur.travelcompanyapp.entity.ApplicationType;
+import me.timur.travelcompanyapp.entity.Group;
+import me.timur.travelcompanyapp.entity.User;
 import me.timur.travelcompanyapp.repository.ApplicationTypeRepository;
 import me.timur.travelcompanyapp.security.auth.ApplicationUserRole;
 import me.timur.travelcompanyapp.service.UserService;
@@ -49,6 +49,13 @@ public record ApplicationSpecification(
     public Specification<Application> type(String typeName) {
         ApplicationType type = applicationTypeRepository.findById(typeName.toUpperCase()).get();
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("type"), type);
+    }
+
+    public Specification<Application> groupId(String groupId) {
+        return (root, query, criteriaBuilder) -> {
+            Join<Application, Group> join = root.join("group");
+            return criteriaBuilder.equal(join.get("id"), groupId);
+        };
     }
 
     public Specification<Application> groupNumber(String groupNumber) {

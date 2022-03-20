@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.Accommodation;
+import me.timur.travelcompanyapp.entity.Accommodation;
 import me.timur.travelcompanyapp.exception.ResourceNotFoundException;
 import me.timur.travelcompanyapp.repository.AccommodationRepository;
 import org.springframework.stereotype.Service;

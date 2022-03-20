@@ -1,10 +1,10 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.AccommodationBookable;
-import me.timur.travelcompanyapp.domain.Application;
-import me.timur.travelcompanyapp.domain.Room;
-import me.timur.travelcompanyapp.model.reservation.AccommdationBookableDto;
-import me.timur.travelcompanyapp.model.Bookable;
+import me.timur.travelcompanyapp.entity.AccommodationReservation;
+import me.timur.travelcompanyapp.entity.Application;
+import me.timur.travelcompanyapp.entity.Room;
+import me.timur.travelcompanyapp.model.reservation.pre.AccommodationPreReservationDto;
+import me.timur.travelcompanyapp.model.reservation.pre.Reservable;
 import me.timur.travelcompanyapp.repository.AccommodationBookableRepository;
 import me.timur.travelcompanyapp.repository.BookingStatusRepository;
 import me.timur.travelcompanyapp.util.DateUtil;
@@ -18,32 +18,32 @@ import java.util.stream.Collectors;
  */
 
 @Component("accommodationBookingService")
-public record AccommodationBookingService(
+public record AccommodationReservationService(
         AccommodationService accommService,
         RoomTypeService roomTypeService,
         AccommodationBookableRepository accommBookabaleRepo,
         BookingStatusRepository bookingStatusRepo
-) implements BookingService {
+) implements ReservationService {
 
     static final String ACCOMMODATION_BOOKABLE_DEFAULT_STATUS = "REGISTERED";
 
     @Override
-    public void bookAll(Application application, List<Bookable> bookableList) {
+    public void reserveAll(Application application, List<Reservable> reservableList) {
 
-        List<AccommodationBookable> accommBookables = bookableList
+        List<AccommodationReservation> accommBookables = reservableList
                 .stream()
-                .map(dto -> accommodationDtoToEntity((AccommdationBookableDto) dto, application))
+                .map(dto -> accommodationDtoToEntity((AccommodationPreReservationDto) dto, application))
                 .collect(Collectors.toList());
 
         accommBookabaleRepo.saveAll(accommBookables);
     }
 
-    private AccommodationBookable accommodationDtoToEntity(AccommdationBookableDto dto, Application application) {
+    private AccommodationReservation accommodationDtoToEntity(AccommodationPreReservationDto dto, Application application) {
         //create rooms from dto
         List<Room> rooms = roomTypeService.roomDtosToRooms(dto.getRooming());
 
         //create accommodationBookable and assign values
-        AccommodationBookable accommodationBookable = AccommodationBookable.builder()
+        AccommodationReservation accommodationReservation = AccommodationReservation.builder()
                 .accommodation(accommService.findByName(dto.getAccommodationName()))
                 .checkIn(DateUtil.stringToDateTimeOrNull(dto.getCheckIn()))
                 .checkOut(DateUtil.stringToDateTimeOrNull(dto.getCheckOut()))
@@ -52,12 +52,12 @@ public record AccommodationBookingService(
                 .build();
 
         //assign application to the accommodationBookable
-        accommodationBookable.setApplication(application);
+        accommodationReservation.setApplication(application);
 
         //set accommodationBookable for each room
-        rooms.forEach(room -> room.setAccommodationBookable(accommodationBookable));
+        rooms.forEach(room -> room.setAccommodationReservation(accommodationReservation));
 
-        return accommodationBookable;
+        return accommodationReservation;
     }
 }
 

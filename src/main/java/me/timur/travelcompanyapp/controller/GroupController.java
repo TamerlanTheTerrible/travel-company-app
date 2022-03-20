@@ -1,9 +1,9 @@
 package me.timur.travelcompanyapp.controller;
 
 import me.timur.travelcompanyapp.annotation.AuthorizationUser;
-import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.entity.User;
 import me.timur.travelcompanyapp.model.BaseResponse;
-import me.timur.travelcompanyapp.model.reservation.GroupRegistrationRequest;
+import me.timur.travelcompanyapp.model.reservation.pre.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.service.GroupService;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.domain;
+package me.timur.travelcompanyapp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,16 +6,19 @@ import lombok.NoArgsConstructor;
 import me.timur.travelcompanyapp.converter.LangToJsonConverter;
 import me.timur.travelcompanyapp.model.Lang;
 
-import javax.persistence.*;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "booking_status")
-public class BookingStatus {
+@Table(name = "accommodation_category")
+public class AccommodationCategory {
+
     @Id
-    @Column(name = "name", nullable = false)
     private String name;
 
     @Convert(converter = LangToJsonConverter.class)

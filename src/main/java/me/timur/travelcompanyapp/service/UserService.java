@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.entity.User;
 import me.timur.travelcompanyapp.security.auth.ApplicationUserRole;
 
 /**

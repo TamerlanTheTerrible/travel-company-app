@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.repository;
 
-import me.timur.travelcompanyapp.domain.Company;
+import me.timur.travelcompanyapp.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package me.timur.travelcompanyapp.security.auth;
 
-import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.entity.User;
 import me.timur.travelcompanyapp.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

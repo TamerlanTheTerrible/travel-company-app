@@ -1,8 +1,7 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.AccommodationBookable;
-import me.timur.travelcompanyapp.domain.Room;
-import me.timur.travelcompanyapp.domain.RoomType;
+import me.timur.travelcompanyapp.entity.Room;
+import me.timur.travelcompanyapp.entity.RoomType;
 import me.timur.travelcompanyapp.exception.ResourceNotFoundException;
 import me.timur.travelcompanyapp.model.RoomDto;
 import me.timur.travelcompanyapp.repository.RoomTypeRepository;

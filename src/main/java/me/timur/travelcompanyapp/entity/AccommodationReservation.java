@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.domain;
+package me.timur.travelcompanyapp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "accommodation_bookable")
-public class AccommodationBookable extends BookableEntity {
+@Table(name = "accommodation_reservation")
+public class AccommodationReservation extends ReservationEntity {
 
     @ManyToOne
     @JoinColumn(name = "accommodation_ID")
@@ -32,9 +32,9 @@ public class AccommodationBookable extends BookableEntity {
     private LocalDateTime checkOut;
 
     @ManyToOne
-    @JoinColumn(name = "booking_status")
-    private BookingStatus status;
+    @JoinColumn(name = "reservation_status")
+    private ReservationStatus status;
 
-    @OneToMany(mappedBy = "accommodationBookable", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "accommodationReservation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Room> rooming;
 }

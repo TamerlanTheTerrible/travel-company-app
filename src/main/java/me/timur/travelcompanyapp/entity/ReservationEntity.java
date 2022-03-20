@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.domain;
+package me.timur.travelcompanyapp.entity;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Data
 @MappedSuperclass
-public abstract class BookableEntity extends BaseEntity {
+public abstract class ReservationEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "application_id")

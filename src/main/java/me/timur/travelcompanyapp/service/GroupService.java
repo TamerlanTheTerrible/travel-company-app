@@ -1,8 +1,9 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.Group;
-import me.timur.travelcompanyapp.domain.User;
-import me.timur.travelcompanyapp.model.reservation.GroupRegistrationRequest;
+import me.timur.travelcompanyapp.entity.Group;
+import me.timur.travelcompanyapp.entity.User;
+import me.timur.travelcompanyapp.model.reservation.pre.GroupRegistrationRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Temurbek Ismoilov on 06/02/22.

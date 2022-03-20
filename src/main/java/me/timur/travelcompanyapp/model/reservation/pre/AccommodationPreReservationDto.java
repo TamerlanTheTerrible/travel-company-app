@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.model.reservation;
+package me.timur.travelcompanyapp.model.reservation.pre;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.timur.travelcompanyapp.model.Bookable;
 import me.timur.travelcompanyapp.model.RoomDto;
 
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class AccommdationBookableDto extends Bookable {
+public class AccommodationPreReservationDto implements Reservable {
     String accommodationName;
     String checkIn;
     String checkOut;

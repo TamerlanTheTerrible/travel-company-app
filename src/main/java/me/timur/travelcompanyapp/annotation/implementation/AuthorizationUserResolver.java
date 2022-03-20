@@ -1,7 +1,7 @@
 package me.timur.travelcompanyapp.annotation.implementation;
 
 import me.timur.travelcompanyapp.annotation.AuthorizationUser;
-import me.timur.travelcompanyapp.domain.User;
+import me.timur.travelcompanyapp.entity.User;
 import me.timur.travelcompanyapp.security.jwt.JwtTokenVerifier;
 import me.timur.travelcompanyapp.service.UserService;
 import org.springframework.core.MethodParameter;

@@ -1,8 +1,8 @@
 package me.timur.travelcompanyapp.service;
 
-import me.timur.travelcompanyapp.domain.Application;
-import me.timur.travelcompanyapp.domain.ApplicationType;
-import me.timur.travelcompanyapp.model.reservation.ApplicationRegistrationRequest;
+import me.timur.travelcompanyapp.entity.Application;
+import me.timur.travelcompanyapp.entity.ApplicationType;
+import me.timur.travelcompanyapp.model.reservation.pre.ApplicationPreRegistrationRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +16,7 @@ import java.util.List;
 public interface ApplicationService {
 
     @Transactional
-    Application save(ApplicationRegistrationRequest applicationRegistrationRequest);
+    Application save(ApplicationPreRegistrationRequest applicationPreRegistrationRequest);
 
     List<ApplicationType> findAllTypes();
 
