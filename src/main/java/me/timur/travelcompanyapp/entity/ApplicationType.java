@@ -20,7 +20,8 @@ import javax.persistence.*;
 public class ApplicationType {
 
     @Id
-    private String type;
+    @Column(name = "type")
+    private String name;
 
     @Convert(converter = LangToJsonConverter.class)
     private Lang lang;

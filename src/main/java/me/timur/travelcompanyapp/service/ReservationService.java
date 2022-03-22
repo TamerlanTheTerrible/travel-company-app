@@ -10,5 +10,7 @@ import java.util.List;
  */
 
 public interface ReservationService {
+
     void reserveAll(Application application, List<Reservable> bookingList);
+
 }

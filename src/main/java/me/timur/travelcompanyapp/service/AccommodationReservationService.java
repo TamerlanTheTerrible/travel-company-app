@@ -27,6 +27,8 @@ public record AccommodationReservationService(
 
     static final String ACCOMMODATION_BOOKABLE_DEFAULT_STATUS = "REGISTERED";
 
+
+
     @Override
     public void reserveAll(Application application, List<Reservable> reservableList) {
 
