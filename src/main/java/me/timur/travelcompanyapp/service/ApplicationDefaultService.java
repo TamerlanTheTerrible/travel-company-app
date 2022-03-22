@@ -65,12 +65,15 @@ public class ApplicationDefaultService implements ApplicationService {
 
     @Override
     public List<ApplicationPostRegistrationDto> findAllFiltered(HashMap<String, String> filters) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+        //Get  application list
         final Specification<Application> specification = SpecificationBuilder.build(applicationSpecification, filters);
         final List<Application> applications = applicationRepository.findAll(specification);
 
+        //get corresponding reservations' DTOs. The DTOs are grouped by application ID
         final ReservationService reservationService = beanFactory.getBean(applications.get(0).getType().getName().toLowerCase() + "ReservationService", ReservationService.class);
         final HashMap<Integer, List<Reserved>> reservations = reservationService.getAllByApplicationList(applications);
 
-        return applications.stream().map(application -> new ApplicationPostRegistrationDto(application, reservations.get(application.getId()))).collect(Collectors.toList());
+        return ApplicationPostRegistrationDto.fromEntityList(applications, reservations);
     }
+
 }

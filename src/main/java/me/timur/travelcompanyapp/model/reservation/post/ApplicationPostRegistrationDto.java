@@ -11,6 +11,7 @@ import me.timur.travelcompanyapp.model.Lang;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,5 +40,12 @@ public class ApplicationPostRegistrationDto {
         this.groupNumber = application.getGroup().getGroupNumber();
         this.groupSize = application.getGroup().getRegisteredSize();
         this.reservations = reservations;
+    }
+
+    public static List<ApplicationPostRegistrationDto> fromEntityList(List<Application> applications, HashMap<Integer, List<Reserved>> reservationDtoList) {
+        return applications
+                .stream()
+                .map(application -> new ApplicationPostRegistrationDto(application, reservationDtoList.get(application.getId())))
+                .collect(Collectors.toList());
     }
 }
