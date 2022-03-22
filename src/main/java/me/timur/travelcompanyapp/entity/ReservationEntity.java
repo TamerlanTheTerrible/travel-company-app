@@ -1,6 +1,7 @@
 package me.timur.travelcompanyapp.entity;
 
 import lombok.Data;
+import me.timur.travelcompanyapp.model.reservation.post.Reserved;
 
 import javax.persistence.*;
 

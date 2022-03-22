@@ -2,6 +2,7 @@ package me.timur.travelcompanyapp.service;
 
 import me.timur.travelcompanyapp.entity.Application;
 import me.timur.travelcompanyapp.entity.ApplicationType;
+import me.timur.travelcompanyapp.model.reservation.post.ApplicationPostRegistrationDto;
 import me.timur.travelcompanyapp.model.reservation.pre.ApplicationPreRegistrationRequest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,5 +21,5 @@ public interface ApplicationService {
 
     List<ApplicationType> findAllTypes();
 
-    List<Application> findAllFiltered(HashMap<String, String> filters) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException;
+    List<ApplicationPostRegistrationDto> findAllFiltered(HashMap<String, String> filters) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException;
 }

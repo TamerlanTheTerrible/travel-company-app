@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface BookingStatusRepository extends JpaRepository<ReservationStatus, String> {
+public interface ReservationStatusRepository extends JpaRepository<ReservationStatus, String> {
 }
