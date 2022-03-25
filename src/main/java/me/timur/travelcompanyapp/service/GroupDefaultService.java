@@ -1,12 +1,13 @@
 package me.timur.travelcompanyapp.service;
 
+import me.timur.travelcompanyapp.entity.Company;
 import me.timur.travelcompanyapp.entity.Group;
 import me.timur.travelcompanyapp.entity.User;
+import me.timur.travelcompanyapp.exception.GroupAccessDeniedException;
 import me.timur.travelcompanyapp.exception.ResourceNotFoundException;
 import me.timur.travelcompanyapp.model.reservation.pre.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.repository.GroupRepository;
 import me.timur.travelcompanyapp.security.jwt.JwtTokenVerifier;
-import me.timur.travelcompanyapp.util.DateUtil;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,18 +24,21 @@ public record GroupDefaultService(
 
     @Override
     public Integer register(GroupRegistrationRequest dto, User user) {
-        var group = Group.builder()
-                .groupNumber(dto.getGroupNumber())
-                .company(companyService.findByNameOrCreate(dto.getCompany()))
-                .country(dto.getCountry())
-                .tourOperator(user)
-                .arrival(DateUtil.stringToDateTimeOrNull(dto.getArrival()))
-                .departure(DateUtil.stringToDateTimeOrNull(dto.getDeparture()))
-                .registeredSize(dto.getRegisteredSize())
-                .isActive(true)
-                .build();
-
+        final Company company = companyService.findByNameOrCreate(dto.getCompany());
+        var group = new Group(dto, user, company);
         return groupRepository.save(group).getId();
+    }
+
+    @Override
+    public Boolean cancel(Integer id, User user) {
+        Group group = findById(id);
+
+        if (!group.belongsToUser(user))
+            throw new GroupAccessDeniedException("The user has no access to cancel the group");
+
+        group.setIsActive(false);
+        groupRepository.save(group);
+        return true;
     }
 
     @Override
