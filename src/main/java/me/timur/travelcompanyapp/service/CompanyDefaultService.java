@@ -21,6 +21,11 @@ public record CompanyDefaultService(
         return companyOptional.orElseGet(() -> registerCompany(name));
     }
 
+    @Override
+    public Optional<Company> findByName(String companyName) {
+        return companyRepository.findCompanyByName(companyName);
+    }
+
     private Company registerCompany(String name) {
         return companyRepository.save(new Company(name));
     }

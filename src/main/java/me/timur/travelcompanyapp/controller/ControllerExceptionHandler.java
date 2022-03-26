@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import me.timur.travelcompanyapp.exception.GroupAccessDeniedException;
 import me.timur.travelcompanyapp.exception.InvalidInputException;
+import me.timur.travelcompanyapp.exception.SpecificationBuilderException;
 import me.timur.travelcompanyapp.model.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,13 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidInputException.class)
     public BaseResponse handleInvalidInputException(InvalidInputException e){
+        log.error(e.getMessage());
+        return BaseResponse.error(e);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SpecificationBuilderException.class)
+    public BaseResponse handleSpecificationBuilderException(SpecificationBuilderException e){
         log.error(e.getMessage());
         return BaseResponse.error(e);
     }

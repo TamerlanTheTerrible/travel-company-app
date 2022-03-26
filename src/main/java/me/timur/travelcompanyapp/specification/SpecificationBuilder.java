@@ -1,5 +1,6 @@
 package me.timur.travelcompanyapp.specification;
 
+import me.timur.travelcompanyapp.exception.SpecificationBuilderException;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.lang.reflect.InvocationTargetException;
@@ -12,9 +13,9 @@ import static org.springframework.data.jpa.domain.Specification.where;
  * Created by Temurbek Ismoilov on 16/03/22.
  */
 
+public class SpecificationBuilder {
 
-public class SpecificationBuilder<T> {
-    public static <T> Specification<T> build(EntitySpecification entitySpecification, HashMap<String, String> filters) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public static <T> Specification<T> build(EntitySpecification entitySpecification, HashMap<String, String> filters) {
         Specification<T> specification = null;
 
         final Set<String> keySet = filters.keySet();
@@ -32,8 +33,15 @@ public class SpecificationBuilder<T> {
         return specification;
     }
 
-    private static <T> Specification<T> invokeMethod(EntitySpecification entitySpecification, HashMap<String, String> filters, String key) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        return (Specification<T>) ApplicationSpecification.class.getDeclaredMethod(key, String.class).invoke(entitySpecification, filters.get(key));
+    private static <T> Specification<T> invokeMethod(EntitySpecification entitySpecification, HashMap<String, String> filters, String key) {
+        try {
+            return (Specification<T>) entitySpecification
+                    .getClass()
+                    .getDeclaredMethod(key, String.class)
+                    .invoke(entitySpecification, filters.get(key));
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new SpecificationBuilderException("Error occurred during building specification with filter: " + key, e);
+        }
     }
 
     private static <T> Specification<T> emptySpecification() {

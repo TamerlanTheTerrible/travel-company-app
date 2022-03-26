@@ -7,8 +7,13 @@ import me.timur.travelcompanyapp.exception.GroupAccessDeniedException;
 import me.timur.travelcompanyapp.exception.ResourceNotFoundException;
 import me.timur.travelcompanyapp.model.reservation.pre.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.repository.GroupRepository;
-import me.timur.travelcompanyapp.security.jwt.JwtTokenVerifier;
+import me.timur.travelcompanyapp.specification.GroupSpecification;
+import me.timur.travelcompanyapp.specification.SpecificationBuilder;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Temurbek Ismoilov on 06/02/22.
@@ -16,10 +21,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public record GroupDefaultService(
-      GroupRepository groupRepository,
-      CompanyService companyService,
-      UserService userService,
-      JwtTokenVerifier tokenVerifier
+        GroupRepository groupRepository,
+        CompanyService companyService,
+        GroupSpecification groupSpecification
 ) implements GroupService {
 
     @Override
@@ -30,7 +34,7 @@ public record GroupDefaultService(
     }
 
     @Override
-    public Boolean cancel(Integer id, User user) {
+    public void cancel(Integer id, User user) {
         Group group = findById(id);
 
         if (!group.belongsToUser(user))
@@ -38,11 +42,15 @@ public record GroupDefaultService(
 
         group.setIsActive(false);
         groupRepository.save(group);
-        return true;
     }
 
     @Override
     public Group findById(Integer id) {
         return groupRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Could not find group with id " + id));
+    }
+
+    @Override
+    public List<Group> findAll(HashMap<String, String> filters) {
+        return groupRepository.findAll(SpecificationBuilder.build(groupSpecification, filters));
     }
 }

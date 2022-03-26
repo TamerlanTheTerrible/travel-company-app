@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 @Component
-public class AccommodationReservationSpecification implements EntitySpecification {
+public record AccommodationReservationSpecification() implements EntitySpecification {
 
     public Specification<AccommodationReservation> applicationList(List<Application> applications) {
         return (root, query, criteriaBuilder) -> root.get("application").in(applications);
