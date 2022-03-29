@@ -62,7 +62,7 @@ public record GroupSpecification(
         Optional<Company> companyOptional = companyService.findByName(companyName);
 
         if (companyOptional.isEmpty())
-            return emptySpecification();
+            return null;
 
         return (root, query, criteriaBuilder) -> {
             Join<Group, Company> join = root.join("company");

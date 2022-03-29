@@ -1,10 +1,10 @@
 package me.timur.travelcompanyapp.controller;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import me.timur.travelcompanyapp.annotation.AuthorizationUser;
 import me.timur.travelcompanyapp.entity.Group;
 import me.timur.travelcompanyapp.entity.User;
 import me.timur.travelcompanyapp.model.BaseResponse;
+import me.timur.travelcompanyapp.model.reservation.post.GroupPostRegistrationDto;
 import me.timur.travelcompanyapp.model.reservation.pre.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.service.GroupService;
 import me.timur.travelcompanyapp.util.ServletRequestUtil;
@@ -32,7 +32,7 @@ public record GroupController(
     @GetMapping("")
     public BaseResponse getAll(HttpServletRequest request, @AuthorizationUser User tourOperator) {
         final List<Group> groups = groupService.findAll(ServletRequestUtil.getParameterMap(request, tourOperator));
-        return BaseResponse.payload(groups);
+        return BaseResponse.payload(GroupPostRegistrationDto.toDtoList(groups));
     }
 
     @DeleteMapping("/{groupId}")

@@ -21,7 +21,7 @@ public class SpecificationBuilder {
         final Set<String> keySet = filters.keySet();
 
         if (keySet.size() == 0)
-            return emptySpecification();
+            return conjunction();
 
         for (String key: keySet) {
             if (specification == null)
@@ -44,7 +44,11 @@ public class SpecificationBuilder {
         }
     }
 
-    private static <T> Specification<T> emptySpecification() {
+    private static <T> Specification<T> conjunction() {
         return (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
+    }
+
+    private static <T> Specification<T> disConjunction() {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.disjunction();
     }
 }
