@@ -32,6 +32,8 @@ public class SpecificationBuilder {
                 else {
                     specification = specification.and(responseObject);
                 }
+            } else {
+                return disConjunction();
             }
         }
 
@@ -53,5 +55,9 @@ public class SpecificationBuilder {
 
     private static <T> Specification<T> conjunction() {
         return (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
+    }
+
+    private static <T> Specification<T> disConjunction() {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.disjunction();
     }
 }
