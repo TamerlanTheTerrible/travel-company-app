@@ -24,10 +24,15 @@ public class SpecificationBuilder {
             return conjunction();
 
         for (String key: keySet) {
-            if (specification == null)
-                specification = where(invokeMethod(entitySpecification, filters, key));
-            else
-                specification = specification.and(invokeMethod(entitySpecification, filters, key));
+            final Specification<T> responseObject = invokeMethod(entitySpecification, filters, key);
+
+            if (responseObject != null) {
+                if (specification == null)
+                    specification = where(responseObject);
+                else {
+                    specification = specification.and(responseObject);
+                }
+            }
         }
 
         return specification;
@@ -35,10 +40,12 @@ public class SpecificationBuilder {
 
     private static <T> Specification<T> invokeMethod(EntitySpecification entitySpecification, HashMap<String, String> filters, String key) {
         try {
-            return (Specification<T>) entitySpecification
+            final Object o = entitySpecification
                     .getClass()
                     .getDeclaredMethod(key, String.class)
                     .invoke(entitySpecification, filters.get(key));
+
+            return o != null ? (Specification<T>) o : null;
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new SpecificationBuilderException("Error occurred during building specification with filter: " + key, e);
         }
@@ -46,9 +53,5 @@ public class SpecificationBuilder {
 
     private static <T> Specification<T> conjunction() {
         return (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
-    }
-
-    private static <T> Specification<T> disConjunction() {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.disjunction();
     }
 }
