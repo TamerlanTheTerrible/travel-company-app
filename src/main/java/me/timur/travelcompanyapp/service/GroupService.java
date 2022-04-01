@@ -14,11 +14,13 @@ import java.util.List;
 
 public interface GroupService {
 
-    Integer register(GroupRegistrationRequest dto, User user);
+    Group register(GroupRegistrationRequest dto, User user);
 
     void cancel(Integer id, User user);
 
     Group findById(Integer id);
 
     List<Group> findAll(HashMap<String, String> filters);
+
+    Group update(Integer groupId, GroupRegistrationRequest groupRegistrationRequest, User tourOperator);
 }

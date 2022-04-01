@@ -3,6 +3,7 @@ package me.timur.travelcompanyapp.controller;
 import me.timur.travelcompanyapp.annotation.AuthorizationUser;
 import me.timur.travelcompanyapp.entity.Group;
 import me.timur.travelcompanyapp.entity.User;
+import me.timur.travelcompanyapp.exception.ResourceAccessDeniedException;
 import me.timur.travelcompanyapp.model.BaseResponse;
 import me.timur.travelcompanyapp.model.reservation.post.GroupPostRegistrationDto;
 import me.timur.travelcompanyapp.model.reservation.pre.GroupRegistrationRequest;
@@ -25,20 +26,39 @@ public record GroupController(
 
     @PostMapping("")
     public BaseResponse register(@RequestBody GroupRegistrationRequest groupRegistrationRequest, @AuthorizationUser User user) {
-        var groupId = groupService.register(groupRegistrationRequest, user);
-        return BaseResponse.payload(groupId);
+        Group group = groupService.register(groupRegistrationRequest, user);
+        return BaseResponse.payload(new GroupPostRegistrationDto(group));
     }
 
-    @GetMapping("")
-    public BaseResponse getAll(HttpServletRequest request, @AuthorizationUser User tourOperator) {
-        final List<Group> groups = groupService.findAll(ServletRequestUtil.getParameterMap(request, tourOperator));
-        return BaseResponse.payload(GroupPostRegistrationDto.toDtoList(groups));
+    @GetMapping("/{groupId}")
+    public BaseResponse getOne(@PathVariable Integer groupId, @AuthorizationUser User tourOperator) {
+        final Group group = groupService.findById(groupId);
+
+        if (!group.belongsToUser(tourOperator))
+            throw new ResourceAccessDeniedException("Group is not available to the user");
+
+        return BaseResponse.payload(new GroupPostRegistrationDto(group));
+    }
+
+    @PutMapping("/{groupId}")
+    public BaseResponse edit(@PathVariable Integer groupId,
+                             @RequestBody GroupRegistrationRequest groupRegistrationRequest,
+                             @AuthorizationUser User tourOperator) {
+
+        final Group group = groupService.update(groupId, groupRegistrationRequest, tourOperator);
+        return BaseResponse.payload(new GroupPostRegistrationDto(group));
     }
 
     @DeleteMapping("/{groupId}")
     public BaseResponse cancel(@PathVariable("groupId") Integer groupId, @AuthorizationUser User user){
         groupService.cancel(groupId, user);
         return BaseResponse.payload("SUCCESS");
+    }
+
+    @GetMapping("")
+    public BaseResponse getAll(HttpServletRequest request, @AuthorizationUser User tourOperator) {
+        final List<Group> groups = groupService.findAll(ServletRequestUtil.getParameterMap(request, tourOperator));
+        return BaseResponse.payload(GroupPostRegistrationDto.toDtoList(groups));
     }
 
 }

@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
-public class GroupAccessDeniedException extends BaseException {
-    public GroupAccessDeniedException(String message) {
+public class ResourceAccessDeniedException extends BaseException {
+    public ResourceAccessDeniedException(String message) {
         super(message);
     }
 
-    public GroupAccessDeniedException(Throwable throwable) {
+    public ResourceAccessDeniedException(Throwable throwable) {
         super(throwable);
     }
 
-    public GroupAccessDeniedException(String message, Throwable throwable) {
+    public ResourceAccessDeniedException(String message, Throwable throwable) {
         super(message, throwable);
     }
 }

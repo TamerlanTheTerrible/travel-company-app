@@ -2,8 +2,9 @@ package me.timur.travelcompanyapp.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
-import me.timur.travelcompanyapp.exception.GroupAccessDeniedException;
+import me.timur.travelcompanyapp.exception.ResourceAccessDeniedException;
 import me.timur.travelcompanyapp.exception.InvalidInputException;
+import me.timur.travelcompanyapp.exception.ResourceNotFoundException;
 import me.timur.travelcompanyapp.exception.SpecificationBuilderException;
 import me.timur.travelcompanyapp.model.BaseResponse;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public BaseResponse handleResourceNotFoundException(ResourceNotFoundException e){
+        log.error(e.getMessage());
+        return BaseResponse.error(e);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidInputException.class)
     public BaseResponse handleInvalidInputException(InvalidInputException e){
         log.error(e.getMessage());
@@ -34,8 +42,8 @@ public class ControllerExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler(GroupAccessDeniedException.class)
-    public BaseResponse handleGroupAccessDeniedException(GroupAccessDeniedException e){
+    @ExceptionHandler(ResourceAccessDeniedException.class)
+    public BaseResponse handleGroupAccessDeniedException(ResourceAccessDeniedException e){
         log.error(e.getMessage());
         return BaseResponse.error(e);
     }
