@@ -38,6 +38,7 @@ public class GroupPostRegistrationDto {
         this.country = entity.getCountry();
         this.arrival = DateUtil.dateTimeToString(entity.getArrival());
         this.departure = DateUtil.dateTimeToString(entity.getDeparture());
+        this.registeredSize = entity.getRegisteredSize();
         this.tourOperatorName = entity.getTourOperator().getUsername();
         this.tourOperatorId = entity.getTourOperator().getId();
     }
