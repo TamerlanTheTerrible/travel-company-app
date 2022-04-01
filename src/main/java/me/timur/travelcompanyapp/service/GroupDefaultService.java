@@ -35,7 +35,6 @@ public record GroupDefaultService(
     @Override
     public void cancel(Integer id, User user) {
         Group group = findByIdAndUser(id, user);
-
         group.setIsActive(false);
         groupRepository.save(group);
     }

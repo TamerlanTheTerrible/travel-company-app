@@ -8,7 +8,7 @@ import lombok.Setter;
 import me.timur.travelcompanyapp.entity.Group;
 import me.timur.travelcompanyapp.util.DateUtil;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +44,9 @@ public class GroupPostRegistrationDto {
     }
 
     public static List<GroupPostRegistrationDto> toDtoList(List<Group> groups) {
-        return groups.stream().map(GroupPostRegistrationDto::new).collect(Collectors.toList());
+        return groups.stream()
+                .sorted(Comparator.comparing(Group::getArrival))
+                .map(GroupPostRegistrationDto::new)
+                .collect(Collectors.toList());
     }
 }
