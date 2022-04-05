@@ -28,7 +28,7 @@ public record GroupDefaultService(
     @Override
     public Group register(GroupRegistrationRequest dto, User user) {
         final Company company = companyService.findByNameOrCreate(dto.getCompany());
-        var group = Group.create(dto, user, company);
+        var group = new Group(dto, user, company);
         return groupRepository.save(group);
     }
 

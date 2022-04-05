@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.timur.travelcompanyapp.entity.Group;
 import me.timur.travelcompanyapp.util.DateUtil;
+import me.timur.travelcompanyapp.util.GroupNumber;
 
 import java.util.Comparator;
 import java.util.List;
@@ -33,7 +34,7 @@ public class GroupPostRegistrationDto {
 
     public GroupPostRegistrationDto(Group entity) {
         this.id = entity.getId();
-        this.groupNumber = entity.getGroupNumber();
+        this.groupNumber = GroupNumber.removeYear(entity.getGroupNumber());
         this.company = entity.getCompany().getName();
         this.country = entity.getCountry();
         this.arrival = DateUtil.dateTimeToString(entity.getArrival());

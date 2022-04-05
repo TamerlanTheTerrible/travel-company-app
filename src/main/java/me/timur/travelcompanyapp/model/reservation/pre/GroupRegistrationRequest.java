@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.Setter;
+import me.timur.travelcompanyapp.util.GroupNumber;
 
 /**
  * Created by Temurbek Ismoilov on 06/02/22.
