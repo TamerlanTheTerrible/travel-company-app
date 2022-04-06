@@ -9,6 +9,7 @@ import me.timur.travelcompanyapp.model.reservation.pre.GroupRegistrationRequest;
 import me.timur.travelcompanyapp.repository.GroupRepository;
 import me.timur.travelcompanyapp.specification.GroupSpecification;
 import me.timur.travelcompanyapp.specification.SpecificationBuilder;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import java.util.List;
  * Created by Temurbek Ismoilov on 06/02/22.
  */
 
+@Primary
 @Service
 public record GroupDefaultService(
         GroupRepository groupRepository,
@@ -56,7 +58,8 @@ public record GroupDefaultService(
         return groupRepository.save(groupUpdated);
     }
 
-    private Group findByIdAndUser(Integer id, User tourOperator) {
+    @Override
+    public Group findByIdAndUser(Integer id, User tourOperator) {
         Group group = findById(id);
 
         if (!group.belongsToUser(tourOperator))

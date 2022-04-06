@@ -5,12 +5,14 @@ import me.timur.travelcompanyapp.exception.InvalidUsernameException;
 import me.timur.travelcompanyapp.exception.ResourceNotFoundException;
 import me.timur.travelcompanyapp.repository.UserRepository;
 import me.timur.travelcompanyapp.security.auth.ApplicationUserRole;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by Temurbek Ismoilov on 05/02/22.
  */
 
+@Primary
 @Service("user_service_default")
 public record UserDefaultService(
         UserRepository userRepository

@@ -23,4 +23,6 @@ public interface GroupService {
     List<Group> findAll(HashMap<String, String> filters);
 
     Group update(Integer groupId, GroupRegistrationRequest groupRegistrationRequest, User tourOperator);
+
+    Group findByIdAndUser(Integer id, User tourOperator);
 }

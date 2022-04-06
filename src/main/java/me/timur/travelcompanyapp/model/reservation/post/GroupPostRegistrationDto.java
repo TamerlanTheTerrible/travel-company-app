@@ -32,22 +32,24 @@ public class GroupPostRegistrationDto {
     String tourOperatorName;
     Integer tourOperatorId;
 
-    public GroupPostRegistrationDto(Group entity) {
-        this.id = entity.getId();
-        this.groupNumber = GroupNumber.removeYear(entity.getGroupNumber());
-        this.company = entity.getCompany().getName();
-        this.country = entity.getCountry();
-        this.arrival = DateUtil.dateTimeToString(entity.getArrival());
-        this.departure = DateUtil.dateTimeToString(entity.getDeparture());
-        this.registeredSize = entity.getRegisteredSize();
-        this.tourOperatorName = entity.getTourOperator().getUsername();
-        this.tourOperatorId = entity.getTourOperator().getId();
+    public static GroupPostRegistrationDto fromEntity(Group entity) {
+        GroupPostRegistrationDto dto = new GroupPostRegistrationDto();
+        dto.id = entity.getId();
+        dto.groupNumber = GroupNumber.removeYear(entity.getGroupNumber());
+        dto.company = entity.getCompany().getName();
+        dto.country = entity.getCountry();
+        dto.arrival = DateUtil.dateTimeToString(entity.getArrival());
+        dto.departure = DateUtil.dateTimeToString(entity.getDeparture());
+        dto.registeredSize = entity.getRegisteredSize();
+        dto.tourOperatorName = entity.getTourOperator().getUsername();
+        dto.tourOperatorId = entity.getTourOperator().getId();
+        return dto;
     }
 
     public static List<GroupPostRegistrationDto> toDtoList(List<Group> groups) {
         return groups.stream()
                 .sorted(Comparator.comparing(Group::getArrival))
-                .map(GroupPostRegistrationDto::new)
+                .map(GroupPostRegistrationDto::fromEntity)
                 .collect(Collectors.toList());
     }
 }

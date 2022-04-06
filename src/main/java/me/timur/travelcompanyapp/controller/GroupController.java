@@ -27,17 +27,13 @@ public record GroupController(
     @PostMapping("")
     public BaseResponse register(@RequestBody GroupRegistrationRequest groupRegistrationRequest, @AuthorizationUser User user) {
         Group group = groupService.register(groupRegistrationRequest, user);
-        return BaseResponse.payload(new GroupPostRegistrationDto(group));
+        return BaseResponse.payload(GroupPostRegistrationDto.fromEntity(group));
     }
 
     @GetMapping("/{groupId}")
     public BaseResponse getOne(@PathVariable Integer groupId, @AuthorizationUser User tourOperator) {
-        final Group group = groupService.findById(groupId);
-
-        if (!group.belongsToUser(tourOperator))
-            throw new ResourceAccessDeniedException("Group is not available to the user");
-
-        return BaseResponse.payload(new GroupPostRegistrationDto(group));
+        final Group group = groupService.findByIdAndUser(groupId, tourOperator);
+        return BaseResponse.payload(GroupPostRegistrationDto.fromEntity(group));
     }
 
     @PutMapping("/{groupId}")
@@ -46,7 +42,7 @@ public record GroupController(
                              @AuthorizationUser User tourOperator) {
 
         final Group group = groupService.update(groupId, groupRegistrationRequest, tourOperator);
-        return BaseResponse.payload(new GroupPostRegistrationDto(group));
+        return BaseResponse.payload(GroupPostRegistrationDto.fromEntity(group));
     }
 
     @DeleteMapping("/{groupId}")
