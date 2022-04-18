@@ -32,14 +32,16 @@ public class ApplicationDefaultService implements ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final ApplicationTypeRepository applicationTypeRepository;
     private final ApplicationSpecification applicationSpecification;
+    private final SpecificationBuilder specificationBuilder;
 
-    public ApplicationDefaultService(BeanFactory beanFactory, GroupService groupService, UserService userService, ApplicationRepository applicationRepository, ApplicationTypeRepository applicationTypeRepository, ApplicationSpecification applicationSpecification) {
+    public ApplicationDefaultService(BeanFactory beanFactory, GroupService groupService, UserService userService, ApplicationRepository applicationRepository, ApplicationTypeRepository applicationTypeRepository, ApplicationSpecification applicationSpecification, SpecificationBuilder specificationBuilder) {
         this.beanFactory = beanFactory;
         this.groupService = groupService;
         this.userService = userService;
         this.applicationRepository = applicationRepository;
         this.applicationTypeRepository = applicationTypeRepository;
         this.applicationSpecification = applicationSpecification;
+        this.specificationBuilder = specificationBuilder;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class ApplicationDefaultService implements ApplicationService {
     @Override
     public List<ApplicationPostRegistrationDto> findAllFiltered(HashMap<String, String> filters) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         //Get  application list
-        final Specification<Application> specification = SpecificationBuilder.build(applicationSpecification, filters);
+        final Specification<Application> specification = specificationBuilder.build(applicationSpecification, filters);
         final List<Application> applications = applicationRepository.findAll(specification);
 
         //get corresponding reservations' DTOs. The DTOs are grouped by application ID

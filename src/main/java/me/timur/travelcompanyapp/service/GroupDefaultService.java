@@ -12,9 +12,6 @@ import me.timur.travelcompanyapp.specification.SpecificationBuilder;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,7 +24,8 @@ import java.util.List;
 public record GroupDefaultService(
         GroupRepository groupRepository,
         CompanyService companyService,
-        GroupSpecification groupSpecification
+        GroupSpecification groupSpecification,
+        SpecificationBuilder specificationBuilder
 ) implements GroupService {
 
     @Override
@@ -51,7 +49,7 @@ public record GroupDefaultService(
 
     @Override
     public List<Group> findAll(HashMap<String, String> filters) {
-        return groupRepository.findAll(SpecificationBuilder.build(groupSpecification, filters));
+        return groupRepository.findAll(specificationBuilder.build(groupSpecification, filters));
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.timur.travelcompanyapp.specification;
 
 import me.timur.travelcompanyapp.exception.SpecificationBuilderException;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -13,9 +14,10 @@ import static org.springframework.data.jpa.domain.Specification.where;
  * Created by Temurbek Ismoilov on 16/03/22.
  */
 
+@Component
 public class SpecificationBuilder {
 
-    public static <T> Specification<T> build(EntitySpecification entitySpecification, HashMap<String, String> filters) {
+    public <T> Specification<T> build(EntitySpecification entitySpecification, HashMap<String, String> filters) {
         Specification<T> specification = null;
 
         final Set<String> keySet = filters.keySet();
@@ -40,7 +42,7 @@ public class SpecificationBuilder {
         return specification;
     }
 
-    private static <T> Specification<T> invokeMethod(EntitySpecification entitySpecification, HashMap<String, String> filters, String key) {
+    private <T> Specification<T> invokeMethod(EntitySpecification entitySpecification, HashMap<String, String> filters, String key) {
         try {
             final Object o = entitySpecification
                     .getClass()
@@ -53,11 +55,11 @@ public class SpecificationBuilder {
         }
     }
 
-    private static <T> Specification<T> conjunction() {
+    private <T> Specification<T> conjunction() {
         return (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
     }
 
-    private static <T> Specification<T> disConjunction() {
+    private <T> Specification<T> disConjunction() {
         return (root, query, criteriaBuilder) -> criteriaBuilder.disjunction();
     }
 }
