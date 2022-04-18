@@ -1,4 +1,4 @@
-package me.timur.travelcompanyapp.converter;
+package me.timur.travelcompanyapp.util.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;

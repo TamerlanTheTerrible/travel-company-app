@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
@@ -32,8 +31,6 @@ class GroupControllerTest {
     @Mock
     GroupPostRegistrationDto dto;
     @Mock
-
-
     Group group1;
     Company companyKris;
     User userBruce;
@@ -71,12 +68,14 @@ class GroupControllerTest {
 
         final int id = anyInt();
         when(groupService.findById(id)).thenReturn(mock(Group.class));
-        MockedStatic<BaseResponse> mockResponse = mockStatic(BaseResponse.class);
+
         MockedStatic<GroupPostRegistrationDto> mockDto = mockStatic(GroupPostRegistrationDto.class);
         mockDto.when(() -> GroupPostRegistrationDto.fromEntity(any())).thenReturn(mock(GroupPostRegistrationDto.class));
+
+        MockedStatic<BaseResponse> mockResponse = mockStatic(BaseResponse.class);
         mockResponse.when(() -> BaseResponse.payload(any())).thenReturn(mock(BaseResponse.class));
 
-        final MvcResult mvcResult = mockMvc.perform(get("/group/" + id))
+        mockMvc.perform(get("/group/" + id))
                 .andExpect(status().isOk())
                 .andReturn();
     }
