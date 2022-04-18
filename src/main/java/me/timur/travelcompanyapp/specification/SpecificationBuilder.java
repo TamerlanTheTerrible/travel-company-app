@@ -26,7 +26,7 @@ public class SpecificationBuilder {
             return conjunction();
 
         for (String key: keySet) {
-            final Specification<T> responseObject = invokeMethod(entitySpecification, filters, key);
+            final Specification<T> responseObject = invokeMethod(entitySpecification, key, filters.get(key));
 
             if (responseObject != null) {
                 if (specification == null)
@@ -42,12 +42,12 @@ public class SpecificationBuilder {
         return specification;
     }
 
-    private <T> Specification<T> invokeMethod(EntitySpecification entitySpecification, HashMap<String, String> filters, String key) {
+    private <T> Specification<T> invokeMethod(EntitySpecification entitySpecification, String key, String value) {
         try {
             final Object o = entitySpecification
                     .getClass()
                     .getDeclaredMethod(key, String.class)
-                    .invoke(entitySpecification, filters.get(key));
+                    .invoke(entitySpecification, value);
 
             return o != null ? (Specification<T>) o : null;
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {

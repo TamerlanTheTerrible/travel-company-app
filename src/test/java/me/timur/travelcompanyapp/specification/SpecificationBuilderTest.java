@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.HashMap;
 
@@ -31,42 +32,40 @@ class SpecificationBuilderTest {
     }
 
     @Test
-    void doNotInvokeGroupSpecificationWhenFilterIsEmpty() {
-        //given
-        EntitySpecification entitySpecification = groupSpecification;
-
-        //when
-        specificationBuilder.build(entitySpecification, filters);
-
-        //then
-        verifyNoInteractions(groupSpecification);
-    }
-
-    @Test
     void invokeGroupSpecificationMatchingMethod() {
         //given
-        EntitySpecification entitySpecification = groupSpecification;
         filters.put("groupNumber", "1/1-I");
 
         //when
-        specificationBuilder.build(entitySpecification, filters);
+        specificationBuilder.build(groupSpecification, filters);
 
         //then
         verify(groupSpecification).groupNumber(anyString());
         verifyNoMoreInteractions(groupSpecification);
     }
 
+
+    @Test
+    void doNotInvokeGroupSpecificationWhenFilterIsEmpty() {
+        //given
+
+        //when
+        specificationBuilder.build(groupSpecification, filters);
+
+        //then
+        verifyNoInteractions(groupSpecification);
+    }
+
     @Test
     void throwExceptionWhenNoMatchingMethod() {
         //given
-        EntitySpecification entitySpecification = groupSpecification;
         String filterName = "groupMumber";
         filters.put(filterName, "1/1-I");
         String expectedMessage = "Error occurred during building specification with filter: " + filterName;
 
         //when
         //then
-        var exception = assertThrows(SpecificationBuilderException.class, () -> specificationBuilder.build(entitySpecification, filters));
+        var exception = assertThrows(SpecificationBuilderException.class, () -> specificationBuilder.build(groupSpecification, filters));
         assertTrue(exception.getMessage().contains(expectedMessage));
         verifyNoInteractions(groupSpecification);
     }
